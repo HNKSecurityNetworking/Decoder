@@ -47,6 +47,8 @@ def Arguments(): #function to get the arguments
 	args = parser.parse_args()
 	if args.e and args.all:
 		EncodeBaseAll(bytes(args.e, "utf-8"))
+	elif args.d and args.all:
+		DecodeBaseAll(args.d)
 	else:
 		print("Use algum argumento xD")
 
@@ -57,5 +59,27 @@ def EncodeBaseAll(encoder): #Function for encoder for base64
 	Encoders["a85encode"] = str(base64.a85encode(encoder), "utf-8")
 	Encoders["b16encode"] = str(base64.b16encode(encoder), "utf-8")
 	for i in Encoders:
-		print(Colors.White+i+" Encode: "+Colors.Green+Encoders[i]+Colors.End)
+		print(Colors.White+i+"Encode: "+Colors.Green+Encoders[i]+Colors.End)
+def DecodeBaseAll(encoder):
+	try: 
+		decode = str(base64.b64decode(encoder), "utf-8")
+		print(Colors.White+"Decode Base64: "+Colors.Red,decode,Colors.End)
+	except:
+		print(Colors.Red+"Not is Base64.")
+	try:
+		decode = str(base64.b32decode(encoder), "utf-8")
+		print(Colors.White+"Decode Base32: "+Colors.Red,decode,Colors.End)
+	except:
+		print(Colors.Red+"Not is Base32.")
+	try:
+		decode = str(base64.b16decode(encoder), "utf-8")
+		print(print(Colors.White+"Decode Base16: "+Colors.Red,decode,Colors.End))
+	except:
+		print(Colors.Red+"Not is Base16")
+	try:
+		decode = str(base64.a85decode(encoder), "utf-8")
+		print(Colors.White+"Decode a85: "+Colors.Red,decode,Colors.End)
+	except:
+		print(Colors.Red+"Not is a85")
+
 Main()
