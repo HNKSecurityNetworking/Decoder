@@ -6,6 +6,10 @@ import os
 import sys
 import base64
 import argparse
+from sys import path
+path.append("src/")
+from Morse import morse 
+from base import base
 
 
 def Main(): #Function main
@@ -44,42 +48,25 @@ def Arguments(): #function to get the arguments
 	parser.add_argument("--all", action="store_true", dest="all", required=False, help="Select all options.")
 	parser.add_argument("--e", action="store", dest="e", required=False, help="Encode all options.")
 	parser.add_argument("--d", action="store", dest="d", required=False, help="Decode all options.")
+	parser.add_argument("--m", action="store_true", dest="m", required=False, help="Select option morse.")
+	parser.add_argument("--b", action="store_true", dest="b", required=False, help="Select option for all base's.")
 	args = parser.parse_args()
-	if args.e and args.all:
-		EncodeBaseAll(bytes(args.e, "utf-8"))
-	elif args.d and args.all:
-		DecodeBaseAll(args.d)
-	else:
-		print("Use algum argumento xD")
-
-def EncodeBaseAll(encoder): #Function for encoder for base64
-	Encoders = {}
-	Encoders["Base64"]    = str(base64.b64encode(encoder), "utf-8")
-	Encoders["Base32"]    = str(base64.b32encode(encoder), "utf-8")
-	Encoders["a85encode"] = str(base64.a85encode(encoder), "utf-8")
-	Encoders["b16encode"] = str(base64.b16encode(encoder), "utf-8")
-	for i in Encoders:
-		print(Colors.White+i+"Encode: "+Colors.Green+Encoders[i]+Colors.End)
-def DecodeBaseAll(encoder):
-	try: 
-		decode = str(base64.b64decode(encoder), "utf-8")
-		print(Colors.White+"Decode Base64: "+Colors.Red,decode,Colors.End)
-	except:
-		print(Colors.Red+"Not is Base64.")
-	try:
-		decode = str(base64.b32decode(encoder), "utf-8")
-		print(Colors.White+"Decode Base32: "+Colors.Red,decode,Colors.End)
-	except:
-		print(Colors.Red+"Not is Base32.")
-	try:
-		decode = str(base64.b16decode(encoder), "utf-8")
-		print(print(Colors.White+"Decode Base16: "+Colors.Red,decode,Colors.End))
-	except:
-		print(Colors.Red+"Not is Base16")
-	try:
-		decode = str(base64.a85decode(encoder), "utf-8")
-		print(Colors.White+"Decode a85: "+Colors.Red,decode,Colors.End)
-	except:
-		print(Colors.Red+"Not is a85")
-
+	if args.m and args.e:
+		encode = morse.encode(args.e)
+		print(Colors.Green+"String: "+Colors.White+args.e)
+		print(Colors.White+"Encoded:"+Colors.Green,encode)
+	elif args.m and args.d:
+		decode = morse.decode(args.d)
+		print(Colors.Green+"Encode: "+Colors.White,args.d)
+		print(Colors.White+"Decode: "+Colors.Green,decode)
+	elif args.b and args.e:
+		print(Colors.White+"\nString for encode: "+str(args.e)+"\n")
+		dec = base.encodebase(args.e)
+		for i in dec:
+			print(Colors.Red,i+": "+Colors.White,dec[i])
+	elif args.b and args.d:
+		print(Colors.White+"\nString for decode: "+str(args.d)+"\n")
+		dec = base.decodebase(args.d)
+		for i in dec:
+			print(Colors.Red,i+": "+Colors.White,dec[i])
 Main()
