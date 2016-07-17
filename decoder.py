@@ -10,18 +10,31 @@ from sys import path
 path.append("src/")
 from Morse import morse 
 from base import base
-
-
-def Main(): #Function main
-	System()
-	Banner()
-	Arguments()
+from time import sleep
 
 class Colors: #function for colors
 	Red   = "\033[0;31m"
 	Green = "\033[0;32m"
 	White = "\033[1;37m"
 	End   = "\033[0m"
+banner =Colors.Red+"""
+	
+			██╗  ██╗███╗   ██╗██╗  ██╗
+   			██║  ██║████╗  ██║██║ ██╔╝
+   			███████║██╔██╗ ██║█████╔╝ 
+   			██╔══██║██║╚██╗██║██╔═██╗ 
+   			██║  ██║██║ ╚████║██║  ██╗
+   			╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝
+   			   HNK Security Networking."""+Colors.End
+
+
+
+
+def Banner(ban):
+	for b in ban + '\n':
+		sys.stdout.write(b)
+		sys.stdout.flush()
+		sleep(7./500)
 
 def System(): #function to get system information
 	if sys.platform in ['linux', 'linux2']:
@@ -32,15 +45,6 @@ def System(): #function to get system information
 		Colors.Green = ""
 		Colors.End   = ""
 
-def Banner():
-	print(Colors.Red+"""
-			██╗  ██╗███╗   ██╗██╗  ██╗
-   			██║  ██║████╗  ██║██║ ██╔╝
-   			███████║██╔██╗ ██║█████╔╝ 
-   			██╔══██║██║╚██╗██║██╔═██╗ 
-   			██║  ██║██║ ╚████║██║  ██╗
-   			╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝"""+Colors.End)
-	print(Colors.Green+"\t\t\t  HNK Security Network"+Colors.End)
 
 def Arguments(): #function to get the arguments
 	global args
@@ -69,4 +73,9 @@ def Arguments(): #function to get the arguments
 		dec = base.decodebase(args.d)
 		for i in dec:
 			print(Colors.Red,i+": "+Colors.White,dec[i])
+def Main(): #Function main
+	System()
+	Banner(banner)
+	Arguments()
+
 Main()
