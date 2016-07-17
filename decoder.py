@@ -17,6 +17,7 @@ class Colors: #function for colors
 	Green = "\033[0;32m"
 	White = "\033[1;37m"
 	End   = "\033[0m"
+
 banner =Colors.Red+"""
 	
 			██╗  ██╗███╗   ██╗██╗  ██╗
@@ -26,9 +27,6 @@ banner =Colors.Red+"""
    			██║  ██║██║ ╚████║██║  ██╗
    			╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝
    			   HNK Security Networking."""+Colors.End
-
-
-
 
 def Banner(ban):
 	for b in ban + '\n':
@@ -44,7 +42,6 @@ def System(): #function to get system information
 		Colors.Red   = ""
 		Colors.Green = ""
 		Colors.End   = ""
-
 
 def Arguments(): #function to get the arguments
 	global args
@@ -73,6 +70,7 @@ def Arguments(): #function to get the arguments
 		dec = base.decodebase(args.d)
 		for i in dec:
 			print(Colors.Red,i+": "+Colors.White,dec[i])
+
 def Main(): #Function main
 	System()
 	Banner(banner)
